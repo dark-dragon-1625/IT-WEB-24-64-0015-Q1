@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taskia</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"
+        integrity="sha512-jnSuA4Ss2PkkikSOLtYs8BlYIeeIK1h99ty4YfvRPAlzr377vr3CXDb7sb7eEEBYjDtcYj+AjBH3FLv5uSJuXg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    <!-- Font-Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const element = document.querySelector('.row.row-cols-1');
+            
+            if (element) {
+                console.log("Element found");
+
+                function handleResize() {
+                    if (window.innerWidth >= 768) { // Tablet and desktop
+                        element.classList.remove('row-cols-1');
+                        console.log("Removed 'row-cols-1' class");
+                    } else {
+                        element.classList.add('row-cols-1');
+                        console.log("Added 'row-cols-1' class");
+                    }
+                }
+
+                // Call on load
+                handleResize();
+                
+                // Listen to window resize
+                window.addEventListener('resize', handleResize);
+            } else {
+                console.log("Element not found");
+            }
+        });
+
+    </script>
+</head>
+
+<body>
+    <style>
+        :root {
+            --color-white: #ffffff;
+            --color-purple: #525ffb;
+            --color-darkpurple: #2f40fa;
+            --color-gray: #969696;
+            --color-lightgray: #a1a1a1;
+            --color-black: #000000;
+            --color-lightblue: #e8f0ff;
+            --color-yellow: #ffe7aa;
+        }
+
+        .poppins-thin {
+            font-family: "Poppins", sans-serif;
+            font-weight: 100;
+            font-style: normal;
+        }
+
+        .poppins-extralight {
+            font-family: "Poppins", sans-serif;
+            font-weight: 200;
+            font-style: normal;
+        }
+
+        .poppins-light {
+            font-family: "Poppins", sans-serif;
+            font-weight: 300;
+            font-style: normal;
+        }
+
+        .poppins-regular {
+            font-family: "Poppins", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        .poppins-medium {
+            font-family: "Poppins", sans-serif;
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        .poppins-semibold {
+            font-family: "Poppins", sans-serif;
+            font-weight: 600;
+            font-style: normal;
+        }
+
+        .poppins-bold {
+            font-family: "Poppins", sans-serif;
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        .poppins-extrabold {
+            font-family: "Poppins", sans-serif;
+            font-weight: 800;
+            font-style: normal;
+        }
+
+        .poppins-black {
+            font-family: "Poppins", sans-serif;
+            font-weight: 900;
+            font-style: normal;
+        }
+
+        .main-bg-color {
+            background-color: var(--color-white);
+        }
+
+        .secondary-bg-color {
+            background-color: var(--color-purple);
+        }
+
+        .main-color {
+            color: var(--color-white);
+        }
+
+        .secondary-color {
+            color: var(--color-purple);
+        }
+
+        .color-gray {
+            color: var(--color-gray);
+        }
+
+        .color-lightgray {
+            color: var(--color-lightgray);
+        }
+
+        .color-lightblue {
+            color: var(--color-lightblue);
+        }
+
+        .color-yellow {
+            color: var(--color-yellow);
+        }
+
+        .border-2 {
+            border-color: var(--color-purple) !important;
+        }
+
+        .padding-1 {
+            padding: 0.375rem 1.5rem !important;
+        }
+
+        .padding-2 {
+            padding: 0.375rem 3.5rem 0.2rem 1rem !important;
+        }
+
+        .margin-1 {
+            margin-top: 3rem !important;
+            margin-bottom: 9rem !important;
+        }
+
+        .margin-2 {
+            margin-top: 3rem !important;
+            margin-bottom: 11rem !important;
+        }
+
+        .margin-3 {
+            margin-top: 3rem !important;
+            margin-bottom: 7rem !important;
+        }
+
+        .custom-fs-1 {
+            font-size: calc(1.875rem + 1.8vw);
+            /* color: var(--bs-gray-500); */
+        }
+
+        .custom-fs-2 {
+            font-size: calc(0.375rem + 0.58vw);
+        }
+
+        .custom-fs-3 {
+            font-size: calc(0.25rem + 0.58vw);
+        }
+
+        .custom-fs-4 {
+            font-size: 7rem;
+        }
+
+        .height-1 {
+            height: 3rem;
+        }
+
+        .navbar-brand {
+            transition: color .25s ease-in-out, text-shadow .25s ease-in-out !important;
+        }
+
+        .navbar-brand:hover {
+            color: var(--color-darkpurple) !important;
+            text-shadow: 0 0 .5rem var(--color-darkpurple) !important;
+        }
+
+        .form-control {
+            transition: border-color .25s ease-in-out, box-shadow .25s ease-in-out
+        }
+
+        .form-control:hover {
+            border-color: var(--color-gray) !important;
+        }
+
+        .form-control:focus {
+            color: var(--bs-body-color) !important;
+            background-color: var(--bs-body-bg) !important;
+            border-color: var(--color-gray) !important;
+            outline: 0 !important;
+            box-shadow: 0 0 0 .25rem rgba(150, 150, 150, .25) !important;
+        }
+
+        .btn {
+            transition: color .25s ease-in-out, background-color .25s ease-in-out, border-color .25s ease-in-out, box-shadow .25s ease-in-out !important;
+        }
+
+        .btn-top:hover {
+            color: var(--color-purple) !important;
+            background-color: var(--color-white) !important;
+            border-color: var(--color-darkpurple) !important;
+            box-shadow: 0 0 .5rem .1rem var(--color-darkpurple) !important;
+        }
+
+        .btn-primary:hover {
+            color: var(--color-white) !important;
+            background-color: var(--color-purple) !important;
+            border-color: var(--color-darkpurple) !important;
+            box-shadow: 0 0 .5rem .1rem var(--color-darkpurple) !important;
+        }
+
+        .card-title {
+            font-size: 1.875rem !important;
+            margin-bottom: 2rem !important;
+        }
+
+        .card-text {
+            font-size: .7rem !important;
+            margin-bottom: 2rem !important;
+        }
+
+        .cd-1 {
+            color: var(--color-white);
+            background-color: var(--color-purple);
+            margin-bottom: 3rem !important;
+        }
+
+        .cd-2 {
+            color: var(--color-black);
+            background-color: var(--color-lightblue);
+            margin-top: 3rem !important;
+        }
+
+        .cd-3 {
+            color: var(--color-black);
+            background-color: var(--color-yellow);
+            margin-top: 1.5rem !important;
+        }
+
+        .cd-1, .cd-2, .cd-3 {
+            justify-items: center !important;
+        }
+
+        .px-1 {
+            padding-left: .25rem !important;
+            padding-right: .25rem !important;
+        }
+
+        .logo-1 {
+            width: 8%;
+            margin-bottom: 0;
+        }
+
+        .logo-2 {
+            width: 18%;
+            margin-bottom: 0;
+        }
+
+        .srv-img-fluid {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .mt-6 {
+            margin-top: 9rem;
+        }
+
+        h1, img, p, h5, a {
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            user-select: none !important;
+        }
+
+        @media (max-width: 575.98px) {
+            h1 {
+                margin-bottom: 0.9rem !important;
+            }
+
+            .fs-1 {
+                font-size: 2.2rem !important;
+            }
+            .custom-fs-1 {
+                font-size: calc(1.875rem + 0.8vw) !important;
+            }
+
+            .custom-fs-2 {
+                font-size: calc(0.375rem + 1.5vw) !important;
+            }
+
+            .fs-2 {
+                font-size: 3rem;
+            }
+
+            .custom-fs-3 {
+                font-size: calc(0.375rem + 1.1vw) !important;
+            }
+
+            .fs-6 {
+                font-size: 0.8rem !important;
+            }
+
+            .fs-5 {
+                font-size: 1rem !important;
+            }
+
+            .custom-fs-4 {
+                font-size: 3.5rem !important;
+            }
+
+            .lh-base {
+                line-height: 1.25 !important;
+            }
+
+            .img-fluid {
+                width: 80% !important;
+            }
+
+            .margin-1, .margin-2, .margin-3 {
+                margin-top: 3rem !important;
+                margin-bottom: 5rem !important;
+            }
+
+            .card-title {
+                font-size: 1.375rem !important;
+                margin-bottom: 1.5rem !important;
+            }
+
+            .card-text {
+                font-size: .6rem !important;
+                margin-bottom: 0.8rem !important;
+            }
+
+            .w-75 {
+                width: 100% !important;
+            }
+
+            .cd-1, .cd-2, .cd-3 {
+                width: calc(11.5rem + 20vw);
+                justify-self: center !important;
+                margin-top: 0 !important;
+                margin-bottom: .5rem !important;
+            }
+
+            .row > .row {
+                margin-top: 0;
+            }
+
+            .logo-1 {
+                width: 9% !important;
+                margin-bottom: 0 !important;
+            }
+
+            .logo-2 {
+                width: 20% !important;
+                margin-bottom: 0 !important;
+            }
+
+            .srv-img-fluid {
+                width: 60% !important;
+            }
+
+            .mt-6 {
+                margin-top: 0;
+            }
+        }
+
+        @media (min-width: 576px) and (max-width: 767.98px) {
+            .fs-1 {
+                font-size: 2.2rem !important;
+            }
+            
+            .custom-fs-2 {
+                font-size: calc(0.375rem + 1.2vw) !important;
+            }
+
+            .fs-2 {
+                font-size: 1.8rem !important;
+            }
+
+            .custom-fs-3 {
+                font-size: calc(0.375rem + 0.8vw) !important;
+            }
+
+            .fs-5 {
+                font-size: 1rem !important;
+            }
+
+            .custom-fs-4 {
+                font-size: 4.2rem !important;
+            }
+
+            .img-fluid {
+                width: 80% !important;
+            }
+
+            .margin-1, .margin-2, .margin-3 {
+                margin-top: 3rem !important;
+                margin-bottom: 5rem !important;
+            }
+
+            .w-75 {
+                width: 100% !important;
+            }
+
+            .logo-1 {
+                width: 9% !important;
+                margin-bottom: 0 !important;
+            }
+
+            .logo-2 {
+                width: 20% !important;
+                margin-bottom: 0 !important;
+            }
+
+            .srv-img-fluid {
+                width: 60% !important;
+            }
+
+            .mt-6 {
+                margin-top: 1rem !important;
+            }
+
+            .cd-1, .cd-2, .cd-3 {
+                width: calc(20rem + 12vw);
+                justify-self: center !important;
+            }
+        }
+
+        /*@media (min-width: 768px) and (max-width: 991.98px) {
+            .row-cols-lg-3 > * {
+                width: 30% !important;
+            }
+        } */
+
+        @media (min-width: 992px) and (max-width: 1199.98px) {
+            .margin-1 {
+                margin-bottom: 7rem !important;
+            }
+        }
+
+        @media (min-width: 1200px) and (max-width: 1399.98px) {
+            .margin-1 {
+                margin-bottom: 5rem !important;
+            }
+        }
+
+        @media (min-width: 1400px) {
+            .fs-1 {
+                font-size: 2.875rem !important;
+            }
+
+            .custom-fs-1 {
+                font-size: 3.5rem !important;
+            }
+
+            .custom-fs-2 {
+                font-size: 0.95rem !important ;
+            }
+
+            .custom-fs-3 {
+                font-size: 0.83rem !important;
+            }
+
+            .fs-2 {
+                font-size: 2.25rem !important;
+            }
+
+            .card-title {
+                font-size: 2rem !important;
+            }
+
+            .card-text {
+                font-size: 0.8rem !important;
+            }
+        }
+    </style>
+
+    <!-- Navbar -->
+    <header class="container-fluid my-4 main-bg-color">
+        <div class="container">
+            <div class="row">
+                <div class="col d-flex justify-content-between align-items-center">
+                    <a class="navbar-brand navbar-expand-lg poppins-bold fs-1 secondary-color" href="#">Taskia</a>
+                    <button class="btn btn-top border-2 padding-1 rounded-pill"><a
+                            class="text-decoration-none poppins-medium fs-5 secondary-color" href="#">Try
+                            free</a></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Task management section -->
+    <div class="container margin-1">
+        <div class="row flex-md-row flex-column">
+            <div class="col align-self-center order-md-1 order-2">
+                <h1 class="poppins-black custom-fs-1 lh-base">Task management and lists Tool</h1>
+                <p class="poppins-regular custom-fs-2 color-gray">We believe that designing products and services in close
+                    </br>partnership with our clients is the only way to have a real </br>
+                    impact on their business.</p>
+                <form action="" onsubmit="return(validateForm())" class="row flex-md-row flex-column mt-2 mt-md-5">
+                    <div class="col-auto">
+                        <label for="email" class="sr-only">Email</label>
+                        <input type="email"
+                            class="form-control rounded-pill padding-2 poppins-regular custom-fs-2 height-1" id="email"
+                            placeholder="Name@company.com">
+                    </div>
+                    <div class="col-auto align-self-center mt-3 mt-md-0"><button type="submit"
+                            class="btn btn-primary rounded-pill padding-1 secondary-bg-color border-remake poppins-medium fs-6 height-1 mb-2">Try
+                            it free</button></div>
+                </form>
+            </div>
+            <div class="col order-md-2 order-1 d-flex justify-content-center user-select-none"><img draggable="false" src="./Images/hero image.jpg" alt="" class="img-fluid h-100"></div>
+        </div>
+    </div>
+
+    <!-- Services -->
+    <div class="container margin-1">
+        <div class="row justify-content-center">
+            <div class="col-12 text-center">
+                <h1 class="poppins-bold fs-2">Featured Service that We Provid</h1>
+            </div>
+            <div class="row row-cols-1 col-lg-9 col-md-12 col-sm-12 g-4">
+                <div class="col">
+                    <div class="card cd-1">
+                        <img draggable="false" src="./Images/Image 3.png" class="w-75 mt-5 mx-auto" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title poppins-bold text-center">Keep tasks in
+                                one place</h5>
+                            <p class="card-text poppins-semibold text-center"> Save time, avoid losing work and 
+                                information, delegate, and track tasks to 
+                                stay on schedule</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card cd-2">
+                        <img draggable="false" src="./Images/Image 2.png" class="w-75 mt-5 mx-auto" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title poppins-bold text-center">Keep tasks in 
+                                one place</h5>
+                            <p class="card-text poppins-semibold text-center">Save time, avoid losing work and 
+                                information, delegate, and track tasks to 
+                                stay on schedule</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card cd-3">
+                        <img draggable="false" src="./Images/Image 1.png" class="w-75 mt-5 mx-auto" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title poppins-bold text-center">Keep tasks in 
+                                one place</h5>
+                            <p class="card-text poppins-semibold text-center">Save time, avoid losing work and 
+                                information, delegate, and track tasks to 
+                                stay on schedule</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vision -->
+    <div class="container margin-2">
+        <div class="row flex-md-row flex-column">
+            <div class="col col-md-5 me-md-3 mb-3 mb-md-0 ">
+                <img draggable="false" src="./Images/Image 8.jpg" alt="" class="img-fluid">
+            </div>
+            <div class="col col-md-4 my-md-auto my-0">
+                <h1 class="poppins-bold fs-2 mb-md-5">Why do you need task management</h1>
+                <p class="poppins-semibold custom-fs-3 color-gray pe-5 mb-md-4 mb-3">Do you waste time organizing sticky notes, searching your email 
+                    and apps for to-dos, and figuring out what to work on first? 
+                    Then you need one solution to prioritize your tasks, manage 
+                    your time, and meet your deadlines.</p>
+                <button type="submit" class="btn btn-primary rounded-pill padding-1 secondary-bg-color border-remake poppins-medium fs-6 height-1 mb-2">Learn more</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Workflow & Efficient -->
+    <div class="container margin-1">
+        <div class="row flex-md-row flex-column justify-content-end text-end text-md-start">
+            <div class="col col-md-4 order-md-1 order-2 my-md-auto">
+                <h1 class="poppins-bold fs-2 mb-md-5">Seamless Team Workflow & Efficient</h1>
+                <p class="poppins-semibold custom-fs-3 color-gray pe-md-5 pe-0 mb-md-4 mb-3">Do you waste time organizing sticky notes, searching your email 
+                    and apps for to-dos, and figuring out what to work on first? 
+                    Then you need one solution to prioritize your tasks, manage 
+                    your time, and meet your deadlines.</p>
+                <div class="logos">
+                    <img draggable="false" src="./Images/Image 6.jpg" alt="" class="img-fluid logo-1">
+                    <img draggable="false" src="./Images/Image 9.jpg" alt="" class="img-fluid logo-2"> 
+                </div>
+            </div>
+
+            <div class="col col-md-5 order-md-2 order-1">
+                <img draggable="false" src="./Images/Image 7.jpg" alt="" class="img-fluid">
+            </div> 
+        </div>
+    </div>
+
+    <!-- Trust us -->
+    <div class="container margin-3 px-md-5">
+        <div class="row justify-content-center">
+            <div class="col-12 text-center mb-4">
+                <h1 class="poppins-bold fs-1">Trust us and feel free to try our service</h1>
+            </div>
+            <div class="row flex-md-row flex-column">
+                <div class="col col-md-2 align-self-start mb-3">
+                    <img draggable="false" src="./Images/Image 4.jpg" alt="" class="srv-img-fluid">
+                </div>
+                <div class="col col-md-7 text-center align-self-center mb-md-5">
+                    <h1 class="poppins-extrabold custom-fs-4 secondary-color">100 000</h1>
+                </div>
+                <div class="col col-md-3 align-self-end text-end mt-6 mb-3 mb-md-0">
+                    <img draggable="false" src="./Images/Image 5.jpg" alt="" class="srv-img-fluid">
+                </div>
+            </div>
+        </div><hr>
+    </div>
+
+    <!-- Better work -->
+    <div class="container margin-1">
+        <div class="row justify-content-center">
+            <div class="col col-md-5 text-center">
+                <h1 class="poppins-bold fs-1 mb-4">Get better work done</h1>
+                <p class="poppins-light fs-5 mb-4 px-5"> See why millions of people across 195 
+                    countries use Dash.</p>
+                <form action="" onsubmit="return(validateForm())" class="row flex-md-row flex-column justify-content-center mt-2 mt-md-5">
+                    <div class="col-auto">
+                        <label for="email" class="sr-only">Email</label>
+                        <input type="email"
+                            class="form-control rounded-pill padding-2 poppins-regular custom-fs-2 height-1" id="email"
+                            placeholder="Name@company.com">
+                    </div>
+                    <div class="col-auto align-self-center mt-3 mt-md-0"><button type="submit"
+                            class="btn btn-primary rounded-pill padding-1 secondary-bg-color border-remake poppins-medium fs-6 height-1 mb-2">Try
+                            it free</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        $('img').on('dragstart', function(event) { event.preventDefault(); });
+
+        function validateForm() {
+
+            var email = document.getElementById('email').value;
+
+            if (email === "") {
+                window.alert('Enter your e-mail address...!');
+                return false;
+            }
+            return true;
+        }
+
+    </script>
+
+</body>
+
+</html>
